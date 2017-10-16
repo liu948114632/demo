@@ -1,0 +1,6 @@
+server:
+  port: 1000
+spring:
+  http:
+    multipart:
+      max-file-size: 10MB

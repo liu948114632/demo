@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的页面</title>
+    <style>
+        body{
+            margin: auto;
+        }
+    </style>
+
+    <script src="./js/jquery.js">
+    </script>
+</head>
+<body>
+
+<h1 style="text-align: center">这是我的页面，大标题</h1>
+<div style="width: 800px;height: 1000px; margin: auto">
+    <!--<form id="form"  enctype="multipart/form-data" method="post" style="text-align: center">-->
+    <label>用户名：</label><input  title="用户名"  placeholder="用户名" name="name"  />
+    <label>密码：</label><input  title="密码" placeholder="密码" type="password" name="password" /><br/>
+    <input type="button" id="submit" value="登录" style="margin-top: 20px"/>
+    <!--</form>-->
+
+    <br/>
+    <br/>
+    <input type="file" id="file" name="file"  >
+</div>
+</body>
+
+<script>
+    $(function () {
+        $("#submit").click(function () {
+            var formData = new FormData();
+            formData.append("file",$("#file")[0].files[0]);
+            $.ajax({
+                url : "/user/login",
+                type : 'POST',
+                data : formData,
+                // 告诉jQuery不要去处理发送的数据
+                processData : false,
+                // 告诉jQuery不要去设置Content-Type请求头
+                contentType : false,
+                beforeSend:function(){
+                    console.log("正在进行，请稍候");
+                },
+                success : function(responseStr) {
+                    if(responseStr.status===0){
+                        console.log("成功"+responseStr);
+                    }else{
+                        console.log("失败");
+                    }
+                },
+                error : function(responseStr) {
+                    console.log("error:"+responseStr);
+                }
+            });
+        });
+
+
+    })
+
+</script>
+</html>
