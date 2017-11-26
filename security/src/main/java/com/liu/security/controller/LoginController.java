@@ -30,7 +30,9 @@ public class LoginController {
         User user =userDao.findByNameAndPassword(name, password);
         if(user!=null){
 //            将用户放入session中
-            sessionManage.setUser(session.getId(), user);
+            if(sessionManage.getUser(session.getId())==null){
+                sessionManage.setUser(session.getId(), user);
+            }
             return "ok";
         }
         return "error";
